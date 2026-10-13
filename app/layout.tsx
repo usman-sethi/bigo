@@ -1,25 +1,38 @@
 import type { Metadata, Viewport } from 'next';
 import { Bricolage_Grotesque, JetBrains_Mono } from 'next/font/google';
+import { siteUrl } from '../lib/site-url';
 import './globals.css';
 
 const sans = Bricolage_Grotesque({ variable: '--font-bric', subsets: ['latin'] });
 const mono = JetBrains_Mono({ variable: '--font-jb', subsets: ['latin'] });
 
-const title = 'Big O Notation — Algorithm Complexity Explained';
+const title = 'Big O by Usman Sethi | Interactive Big O Notation Guide';
 const description =
-  'A five-minute interactive presentation on Big O notation: what n means, how growth rate is measured, the common complexity classes and how to find them. Presented by Usman Sethi.';
-
-const site = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+  'Learn Big O notation with Usman Sethi in this interactive guide to algorithm time and space complexity, common growth rates, and how to analyze code.';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(site),
+  ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),
   title,
   description,
   authors: [{ name: 'Usman Sethi' }],
-  keywords: ['Big O notation', 'time complexity', 'space complexity', 'algorithms', 'data structures'],
+  creator: 'Usman Sethi',
+  keywords: [
+    'Big O by Usman Sethi',
+    'Big O notation',
+    'time complexity',
+    'space complexity',
+    'algorithm complexity',
+    'data structures and algorithms',
+  ],
   robots: { index: true, follow: true },
-  alternates: { canonical: '/' },
-  openGraph: { title, description, type: 'website', siteName: 'Big O Notation', url: '/' },
+  ...(siteUrl ? { alternates: { canonical: '/' } } : {}),
+  openGraph: {
+    title: 'Big O Notation by Usman Sethi',
+    description,
+    type: 'website',
+    siteName: 'Big O Notation',
+    ...(siteUrl ? { url: '/' } : {}),
+  },
   twitter: { card: 'summary_large_image', title, description },
 };
 
