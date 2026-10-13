@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+/* Colour carries meaning: green = cheap, blue = linear, orange to red = expensive. */
+:root{--bg:#0a0f1f;--fg:#eef1fa;--mut:#8f98b5;--line:#26304f;--grid:rgba(130,150,210,.08);
+--c1:#22c55e;--c2:#2dd4bf;--c3:#38bdf8;--c4:#818cf8;--c5:#fb923c;--c6:#f87171;--c7:#dc2626;color-scheme:dark}
+[data-theme=light]{--bg:#f5f6fb;--fg:#0a0f1f;--mut:#566080;--line:#d8dcea;--grid:rgba(10,15,31,.07);
+--c1:#15803d;--c2:#0f766e;--c3:#0369a1;--c4:#4338ca;--c5:#c2410c;--c6:#dc2626;--c7:#991b1b;color-scheme:light}
+
+@theme inline{
+--color-fg:var(--fg);--color-mut:var(--mut);--color-line:var(--line);
+--color-c1:var(--c1);--color-c2:var(--c2);--color-c3:var(--c3);--color-c4:var(--c4);--color-c5:var(--c5);--color-c6:var(--c6);--color-c7:var(--c7);
+--font-sans:var(--font-bric),system-ui,sans-serif;--font-mono:var(--font-jb),ui-monospace,monospace}
+
+body{background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased}
+/* Coordinate-grid background, drifting very slowly */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+background:linear-gradient(var(--grid) 1px,transparent 1px) 0 0/48px 48px,linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/48px 48px;
+mask-image:radial-gradient(ellipse 75% 65% at 30% 35%,#000,transparent);animation:drift 40s linear infinite}
+@keyframes drift{to{background-position:48px 48px,48px 48px}}
+
+@layer components{
+.btn{display:grid;place-items:center;height:2.5rem;min-width:2.5rem;padding:0 .9rem;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg);font-weight:500;font-size:.85rem;cursor:pointer;transition:transform .15s,border-color .2s,color .2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--c3)}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.35;pointer-events:none}
+.btn[aria-pressed=true]{border-color:var(--c3);color:var(--c3)}
+.code-line{padding:0 .5rem;margin:0 -.5rem;border-left:2px solid transparent;transition:background .2s}
+.code-line:hover{background:color-mix(in srgb,var(--c4) 14%,transparent)}
+.code-line[data-hot=true]{background:color-mix(in srgb,var(--c3) 18%,transparent);border-color:var(--c3)}
+}
+
+:focus-visible{outline:2px solid var(--c3);outline-offset:3px}
+.tg{transition:transform .6s cubic-bezier(.22,1,.36,1)}
+[data-theme=light] .tg{transform:rotate(180deg)}
+.theming *{transition:background-color .4s,color .4s,border-color .4s,fill .4s,stroke .4s!important}
+@media (prefers-reduced-motion:reduce){*,::before{animation:none!important;transition-duration:.01ms!important}}
