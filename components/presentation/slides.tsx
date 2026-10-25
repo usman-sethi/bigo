@@ -75,12 +75,40 @@ function S1() {
   );
 }
 
+/* ---------- Contents ---------- */
+const CONTENTS = [
+  'What is Big O?',
+  'Why it matters',
+  'Key terminology',
+  'Common complexity classes',
+  'Comparing growth rates',
+  'Counting loops in code',
+  'How to find Big O',
+  'Key takeaway',
+  'Any Questions?',
+];
+function SContents() {
+  return (
+    <>
+      <H>TABLE OF CONTENTS</H>
+      <ol className="mt-8 grid gap-x-12 md:grid-cols-2">
+        {CONTENTS.map((title, j) => (
+          <motion.li key={title} className="flex items-center gap-4 border-b border-line py-3 text-lg md:text-xl" {...a(j + 1)}>
+            <span className="font-mono text-c3">{String(j + 1).padStart(2, '0')}</span>
+            <span>{title}</span>
+          </motion.li>
+        ))}
+      </ol>
+    </>
+  );
+}
+
 /* ---------- 2. What is Big O? ---------- */
 function S2() {
   const [n, setN] = useState(5);
   return (
     <>
-      <H>What is Big O Notation?</H>
+      <H>THE BIG O NOTATION</H>
       <R i={2}>
         <p className="mt-6 max-w-2xl text-lg text-mut md:text-xl">
           Big O describes how the <b className="font-medium text-fg">time or memory</b> an algorithm needs grows as the{' '}
@@ -293,7 +321,7 @@ function S8() {
   const s = p[0] + p[1] + p[2];
   return (
     <>
-      <H>How do we find Big O?</H>
+      <H>FINDING BIG O </H>
       <div className="mt-10 grid gap-12 md:grid-cols-2">
         <ol className="space-y-3">
           {STEPS.map((t, j) => (
@@ -321,54 +349,15 @@ function S8() {
   );
 }
 
-/* ---------- 9. Real world ---------- */
-const WORLD = [
-  ['Search engines', 'An index turns a scan of every page into a fast lookup.'],
-  ['Databases', 'An index lookup is O(log n). Scanning the whole table is O(n).'],
-  ['Sorting', 'O(n log n) sorts stay usable where O(n²) sorts stall.'],
-  ['Social media', 'Feeds and suggestions run over millions of items.'],
-  ['Pathfinding', 'Maps search a graph, so the algorithm choice sets the speed.'],
-  ['Large applications', 'A small cost repeated n times becomes a large cost.'],
-];
-function S9() {
-  return (
-    <>
-      <H>Will it still work when the data grows?</H>
-      <div className="mt-10 grid gap-12 md:grid-cols-[1fr_1.6fr]">
-        <R i={2}>
-          <ol className="text-sm">
-            {['Small dataset', 'Algorithm', 'Large dataset', 'Performance'].map((t, j) => (
-              <li key={t} className="flex flex-col items-start">
-                {j > 0 && <span className="my-1 pl-4 text-c3">↓</span>}
-                <span className={`border px-4 py-2 text-base ${j === 1 ? 'border-c3 text-c3' : j === 3 ? 'border-c5 text-c5' : 'border-line'}`}>{t}</span>
-              </li>
-            ))}
-          </ol>
-        </R>
-        <ul className="divide-y divide-line border-y border-line">
-          {WORLD.map(([t, d], j) => (
-            <motion.li key={t} className="py-3 md:flex md:gap-6" {...a(j + 2)}>
-              <span className="font-medium md:w-44 md:shrink-0">{t}</span><span className="text-mut">{d}</span>
-            </motion.li>
-          ))}
-        </ul>
-      </div>
-    </>
-  );
-}
-
-/* ---------- 10. Conclusion ---------- */
+/* ---------- 9. Key takeaway ---------- */
 const SHORT = ['Constant', 'Slow growth', 'Linear', 'Efficient sorting', 'Quadratic', 'Rapid growth', 'Extremely rapid growth'];
-function S10() {
+function S9() {
   return (
     <div className="grid items-center gap-12 md:grid-cols-2">
       <div>
         <R i={1}><h2 className="text-lg text-mut">Key Takeaway</h2></R>
         <R i={2}><p className="mt-3 text-[clamp(2rem,4.8vw,4rem)] font-semibold leading-[1.05] tracking-tight">Big O describes how an algorithm’s resource use grows with input size.</p></R>
-        <R i={5}>
-          <p className="mt-14 text-[clamp(2.6rem,8vw,6rem)] font-semibold leading-none tracking-tighter">THANK YOU</p>
-          <p className="mt-4 text-mut">Presented by Usman Sethi</p>
-        </R>
+        <R i={4}><p className="mt-10 text-mut">Presented by Usman Sethi</p></R>
       </div>
       <ul className="font-mono text-lg">
         {C.map((c, j) => (
@@ -382,4 +371,42 @@ function S10() {
   );
 }
 
-export const slides = [S1, S2, S3, S4, S5, S6, S7, S8, S9, S10];
+/* ---------- 10. Questions ---------- */
+function S10() {
+  return (
+    <div className="grid items-center gap-10 md:grid-cols-2">
+      <R i={1}>
+        <h1 className="text-[clamp(3rem,min(9vw,14vh),7rem)] font-semibold leading-none tracking-tighter">Any Questions?</h1>
+      </R>
+      <R i={2}>
+        <div
+          role="img"
+          aria-label="Placeholder for a funny image"
+          className="grid aspect-video place-items-center border-2 border-dashed border-line bg-fg/[.03] p-6 text-center text-mut"
+        >
+          <span className="text-lg">Funny image goes here</span>
+        </div>
+      </R>
+    </div>
+  );
+}
+
+/* ---------- Final slide ---------- */
+function S11() {
+  return (
+    <div className="pointer-events-none absolute inset-0 grid place-items-center overflow-hidden">
+      <video
+        src="/hamster_clean_white.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+        className="absolute inset-0 size-full object-cover brightness-125"
+      />
+      <div className="absolute inset-0 bg-black/15" aria-hidden="true" />
+    </div>
+  );
+}
+
+export const slides = [S1, SContents, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11];
