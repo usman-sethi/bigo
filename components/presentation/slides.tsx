@@ -77,7 +77,7 @@ function S1() {
 
 /* ---------- Contents ---------- */
 const CONTENTS = [
-  'What is Big O?',
+  'The Big O Notation',
   'Why it matters',
   'Key terminology',
   'Common complexity classes',
@@ -85,7 +85,7 @@ const CONTENTS = [
   'Counting loops in code',
   'How to find Big O',
   'Key takeaway',
-  'Any Questions?',
+  // 'Any Questions?',
 ];
 function SContents() {
   return (
