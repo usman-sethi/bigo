@@ -1,7 +1,6 @@
 'use client';
-import { ReactNode, useEffect, useRef, useState } from 'react';
-import { animate, motion, useMotionValue, useReducedMotion, useTransform, Variants } from 'framer-motion';
-import { gsap } from 'gsap';
+import { ReactNode, useEffect, useState } from 'react';
+import { animate, motion, useMotionValue, useTransform, Variants } from 'framer-motion';
 import GrowthChart from '../visualizations/GrowthChart';
 import { C } from '../../lib/complexity';
 
@@ -374,122 +373,19 @@ function S9() {
 
 /* ---------- 10. Questions ---------- */
 function S10() {
-  const sceneRef = useRef<HTMLDivElement>(null);
-  const vehicleRef = useRef<HTMLImageElement>(null);
-  const shadowRef = useRef<HTMLDivElement>(null);
-  const reducedMotion = useReducedMotion();
-
-  useEffect(() => {
-    const vehicle = vehicleRef.current;
-    const shadow = shadowRef.current;
-    if (!sceneRef.current || !vehicle || !shadow) return;
-
-    const context = gsap.context(() => {
-      if (reducedMotion) {
-        gsap.set(vehicle, { autoAlpha: 1 });
-        gsap.set(shadow, { autoAlpha: 0.65, scaleX: 1 });
-        return;
-      }
-
-      gsap.set(vehicle, {
-        x: -Math.min(window.innerWidth * 0.2, 260),
-        y: 42,
-        scale: 0.82,
-        rotateX: 3,
-        rotateY: -10,
-        rotateZ: -1,
-        autoAlpha: 0,
-        filter: 'brightness(0.78)',
-      });
-      gsap.set(shadow, { autoAlpha: 0, scaleX: 0.68 });
-
-      gsap.timeline()
-        .to(vehicle, {
-          x: 0,
-          y: 0,
-          scale: 1,
-          rotateX: 0,
-          rotateY: 0,
-          rotateZ: 0,
-          autoAlpha: 1,
-          filter: 'brightness(1)',
-          duration: 1.55,
-          ease: 'power3.out',
-        })
-        .to(shadow, { autoAlpha: 0.65, scaleX: 1, duration: 1.2, ease: 'power2.out' }, '<0.2')
-        .to(vehicle, { y: -3, duration: 0.18, ease: 'power2.out' })
-        .to(vehicle, { y: 0, duration: 0.42, ease: 'power2.out' })
-        .to(vehicle, { y: -2, duration: 2.8, repeat: -1, yoyo: true, ease: 'sine.inOut' });
-    }, sceneRef);
-
-    return () => context.revert();
-  }, [reducedMotion]);
-
   return (
-    <div className="w-full">
-      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
-        <R i={1}>
-          <h1 className="text-[clamp(2rem,min(7vw,9vh),6rem)] font-semibold leading-none tracking-tighter">Any Questions?</h1>
-        </R>
-        <R i={2}>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8IuqFxhsCa6kgwwMHUHk-kzBjWylXA2QQt5STCaVqiw&s"
-            alt="Funny image"
-            className="h-auto max-h-[24vh] w-auto max-w-[min(14rem,32vw)] object-contain"
-          />
-        </R>
-      </div>
-      <div
-        ref={sceneRef}
-        className="relative mt-2 flex h-[min(40vh,32rem)] min-h-36 w-full touch-pan-y items-center justify-center overflow-hidden [perspective:1200px]"
-        onPointerMove={event => {
-          if (reducedMotion || !vehicleRef.current) return;
-          const bounds = event.currentTarget.getBoundingClientRect();
-          const x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
-          const y = ((event.clientY - bounds.top) / bounds.height) * 2 - 1;
-          gsap.to(vehicleRef.current, {
-            x: x * 7,
-            rotateY: x * 5,
-            rotateX: -y * 2.5,
-            duration: 0.45,
-            ease: 'power3.out',
-            overwrite: 'auto',
-          });
-        }}
-        onPointerLeave={() => {
-          if (reducedMotion || !vehicleRef.current) return;
-          gsap.to(vehicleRef.current, { x: 0, rotateY: 0, rotateX: 0, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
-        }}
-      >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_70%,rgba(150,170,205,0.13),transparent_68%)]" aria-hidden="true" />
-        <div ref={shadowRef} className="pointer-events-none absolute bottom-[11%] h-7 w-[68%] rounded-[50%] bg-black/70 blur-2xl" aria-hidden="true" />
-        <img
-          ref={vehicleRef}
-          src="/Black%20Toyota%20Hilux%20Vigo%204x4%20Pickup.png"
-          alt="Black Toyota Hilux Vigo 4x4 double-cab pickup"
-          draggable={false}
-          className="relative z-10 max-h-full w-full max-w-5xl select-none object-contain drop-shadow-[0_24px_24px_rgba(0,0,0,0.35)] [transform-style:preserve-3d]"
-        />
-      </div>
-    </div>
+    <R>
+      <h1 className="text-center text-[clamp(2.5rem,min(8vw,12vh),7rem)] font-semibold leading-none tracking-tighter">Any Questions?</h1>
+    </R>
   );
 }
 
 /* ---------- Final slide ---------- */
 function S11() {
   return (
-    <div className="pointer-events-none absolute inset-0 grid place-items-center overflow-hidden">
-      <video
-        src="/hamster_clean_white.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        aria-hidden="true"
-        className="absolute inset-0 size-full object-cover brightness-125"
-      />
-      <div className="absolute inset-0 bg-black/15" aria-hidden="true" />
-    </div>
+    <R>
+      <h1 className="text-center text-[clamp(3rem,min(10vw,16vh),9rem)] font-semibold leading-none tracking-tighter">THANK YOU</h1>
+    </R>
   );
 }
 
